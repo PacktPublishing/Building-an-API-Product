@@ -1,0 +1,58 @@
+asyncapi: 2.2.0
+info:
+  title: Web Payments API
+  version: 1.0.0
+
+channels:
+  payment:
+    publish:
+      message:
+        $ref: '#/components/messages/PaymentRequest'
+    subscribe:
+      message:
+        $ref: '#/components/messages/PaymentResponse'
+
+components:
+  messages:
+    # Payment Request Message
+    PaymentRequest:
+      payload:
+        type: object
+        properties:
+          # Name of the customer making the payment
+          customerName:
+            type: string
+            description: Name of the customer making the payment
+          # Payment amount
+          amount:
+            type: number
+            description: Payment amount
+          # Credit card number
+          cardNumber:
+            type: string
+            description: Credit card number
+          # Expiry date of the credit card
+          cardExpiry:
+            type: string
+            description: Expiry date of the credit card
+          # CVV code of the credit card
+          cardCVV:
+            type: string
+            description: CVV code of the credit card
+      example:
+        customerName: John Doe
+        amount: 100.00
+        cardNumber: "1234567890123456"
+        cardExpiry: "12/23"
+        cardCVV: "123"
+    # Payment Response Message
+    PaymentResponse:
+      payload:
+        type: object
+        properties:
+          # Unique identifier for the payment transaction
+          transactionId:
+            type: string
+            description: Unique identifier for the payment transaction
+      example:
+        transactionId: abc123

@@ -1,0 +1,59 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://example.com/payment" targetNamespace="http://example.com/payment">
+  <wsdl:types>
+    <!-- Define the XML schema types -->
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://example.com/payment">
+      <!-- Payment Request message structure -->
+      <xs:element name="PaymentRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <!-- Name of the customer making the payment -->
+            <xs:element name="customerName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <!-- Payment amount -->
+            <xs:element name="amount" type="xs:decimal" minOccurs="1" maxOccurs="1"/>
+            <!-- Credit card number -->
+            <xs:element name="cardNumber" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <!-- Expiry date of the credit card -->
+            <xs:element name="cardExpiry" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <!-- CVV code of the credit card -->
+            <xs:element name="cardCVV" type="xs:string" minOccurs="1" maxOccurs="1"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!-- Payment Response message structure -->
+      <xs:element name="PaymentResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <!-- Unique identifier for the payment transaction -->
+            <xs:element name="transactionId" type="xs:string" minOccurs="1" maxOccurs="1"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="PaymentRequestMessage">
+    <!-- Payment Request message reference -->
+    <wsdl:part name="PaymentRequest" element="tns:PaymentRequest"/>
+  </wsdl:message>
+  <wsdl:message name="PaymentResponseMessage">
+    <!-- Payment Response message reference -->
+    <wsdl:part name="PaymentResponse" element="tns:PaymentResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="PaymentServicePortType">
+    <!-- Payment operation definition -->
+    <wsdl:operation name="PaymentOperation">
+      <wsdl:input message="tns:PaymentRequestMessage"/>
+      <wsdl:output message="tns:PaymentResponseMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PaymentServiceBinding" type="tns:PaymentServicePortType">
+    <wsdl:operation name="PaymentOperation">
+      <wsdl:input message="tns:PaymentRequestMessage"/>
+      <wsdl:output message="tns:PaymentResponseMessage"/>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PaymentService">
+    <wsdl:port name="PaymentPort" binding="tns:PaymentServiceBinding">
+      <soap:address location="http://example.com/payment"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

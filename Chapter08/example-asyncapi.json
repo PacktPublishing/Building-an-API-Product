@@ -1,0 +1,73 @@
+{
+  "asyncapi": "2.2.0",
+  "info": {
+    "title": "Web Payments API",
+    "version": "1.0.0"
+  },
+  "channels": {
+    "payment": {
+      "publish": {
+        "message": {
+          "$ref": "#/components/messages/PaymentRequest"
+        }
+      },
+      "subscribe": {
+        "message": {
+          "$ref": "#/components/messages/PaymentResponse"
+        }
+      }
+    }
+  },
+  "components": {
+    "messages": {
+      "PaymentRequest": {
+        "payload": {
+          "type": "object",
+          "properties": {
+            "customerName": {
+              "type": "string",
+              "description": "Name of the customer making the payment"
+            },
+            "amount": {
+              "type": "number",
+              "description": "Payment amount"
+            },
+            "cardNumber": {
+              "type": "string",
+              "description": "Credit card number"
+            },
+            "cardExpiry": {
+              "type": "string",
+              "description": "Expiry date of the credit card"
+            },
+            "cardCVV": {
+              "type": "string",
+              "description": "CVV code of the credit card"
+            }
+          }
+        },
+        "example": {
+          "customerName": "John Doe",
+          "amount": 100,
+          "cardNumber": "1234567890123456",
+          "cardExpiry": "12/23",
+          "cardCVV": "123"
+        }
+      },
+      "PaymentResponse": {
+        "payload": {
+          "type": "object",
+          "properties": {
+            "transactionId": {
+              "type": "string",
+              "description": "Unique identifier for the payment transaction"
+            }
+          }
+        },
+        "example": {
+          "transactionId": "abc123"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+# Payment details input type
+input PaymentInput {
+  customerName: String! # Name of the customer making the payment
+  amount: Float! # Payment amount
+  cardNumber: String! # Credit card number
+  cardExpiry: String! # Expiry date of the credit card
+  cardCVV: String! # CVV code of the credit card
+}
+
+# Payment response type
+type PaymentResponse {
+  transactionId: String! # Unique identifier for the payment transaction
+}
+
+# Root Mutation type
+type Mutation {
+  makePayment(payment: PaymentInput!): PaymentResponse! # Make a payment with the provided payment details
+}

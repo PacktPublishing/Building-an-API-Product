@@ -1,0 +1,64 @@
+openapi: 3.1.0
+info:
+  title: Example payment API
+  description: An example API for making online payments using a credit card.
+  version: 1.0.0
+servers:
+  - url: https://api.example.com/v1
+paths:
+  /payments:
+    post:
+      summary: Make a payment
+      description: Make an online payment using credit card information.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
+      responses:
+        '201':
+          description: Payment processed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    PaymentRequest:
+      type: object
+      required:
+        - amount
+        - cardNumber
+        - cardExpiry
+        - cardCvv
+      properties:
+        amount:
+          type: number
+          description: The amount to be charged to the credit card.
+        cardNumber:
+          type: string
+          description: The credit card number.
+        cardExpiry:
+          type: string
+          pattern: ^(0[1-9]|1[0-2])\/?([0-9]{4})$
+          description: The expiration date of the credit card in the format MM/YYYY.
+        cardCvv:
+          type: string
+          description: The CVV number of the credit card.
+    PaymentResponse:
+      type: object
+      properties:
+        transactionId:
+          type: string
+          format: uuid
+          description: The ID of the payment transaction.
+

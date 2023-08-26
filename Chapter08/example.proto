@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package webpayments;
+
+// Payment request message
+message PaymentRequest {
+  string customerName = 1; // Name of the customer making the payment
+  double amount = 2; // Payment amount
+  string cardNumber = 3; // Credit card number
+  string cardExpiry = 4; // Expiry date of the credit card
+  string cardCVV = 5; // CVV code of the credit card
+}
+
+// Payment response message
+message PaymentResponse {
+  string transactionId = 1; // Unique identifier for the payment transaction
+}
+
+// Web payments service
+service WebPayments {
+  // Make payment RPC
+  rpc MakePayment (PaymentRequest) returns (PaymentResponse) {}
+}
