@@ -1,5 +1,5 @@
 {
-  "openapi": "3.1.0",
+  "openapi": "3.0.3",
   "info": {
     "title": "Example payment API",
     "description": "An example API for making online payments using a credit card.",
